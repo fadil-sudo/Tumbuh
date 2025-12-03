@@ -8,6 +8,9 @@ const translations = {
     "Pilih Bahasa:": "Select Language:",
     "Lihat Selengkapnya": "View More", // Tombol
 
+    // --- TERJEMAHAN GAMBAR ---
+    "Seorang anak kecil sedang memegang tanaman": "A small child holding a plant",
+
     // --- INDEX.HTML: ZERO HUNGER ---
     "Apa itu Zero Hunger?": "What is Zero Hunger?",
     "Merupakan <strong>komitmen global</strong> untuk memastikan setiap orang, di mana pun, <strong>akses yang andal dan berkelanjutan</strong> <strong>makanan yang cukup, aman, dan bergizi setiap hari.</strong>": "It is a <strong>global commitment</strong> to ensure every person, everywhere, has <strong>reliable and sustainable access</strong> to adequate, safe, and nutritious food every day.",
@@ -33,6 +36,12 @@ const translations = {
     "<span class=\"highlight\">perubahan dimulai bukan dari limbah,tapi dari kesadaran.</span>": "<span class=\"highlight\">change begins not with waste, but with awareness.</span>"
 };
 
+// Path gambar untuk Hero Section
+const heroImagePaths = {
+    id: "img/child.jpg", // Gambar dengan teks "BIARKAN SEMUA TUMBUH"
+    en: "img/hero-england.jpg" // Asumsi Anda akan menggunakan file baru ini
+};
+
 // Fungsi utama untuk melakukan terjemahan
 function toggleLanguage() {
     // Cek status toggle (ID: true, EN: false)
@@ -42,6 +51,23 @@ function toggleLanguage() {
 
     const targetLang = isIndonesian ? 'id' : 'en';
     htmlTag.lang = targetLang;
+
+    // ************ LOGIKA PENGGANTIAN GAMBAR DI HERO SECTION ************
+    const heroImage = document.getElementById('heroImage');
+    if (heroImage) {
+        // 1. Ganti source (src) gambar
+        heroImage.src = heroImagePaths[targetLang];
+
+        // 2. Ganti alt text gambar
+        const currentAlt = "Seorang anak kecil sedang memegang tanaman"; 
+        const translatedAlt = translations[currentAlt];
+        
+        if (translatedAlt) {
+             heroImage.setAttribute('alt', isIndonesian ? currentAlt : translatedAlt);
+        }
+    }
+    // ************ AKHIR LOGIKA PENGGANTIAN GAMBAR ************
+
 
     elements.forEach(el => {
         // Ambil key (Bahasa Indonesia) dari atribut data
